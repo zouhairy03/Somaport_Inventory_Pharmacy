@@ -22,23 +22,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $expiry_date = $_POST['expiry_date'];
 
     // Insert new medicament into the database
-    $sql = "INSERT INTO medicaments (ppv, name, LOT, N_serie) VALUES ('$ppv', '$name', '$lot', '$n_serie')";
-    if ($conn->query($sql) === TRUE) {
-        $medicament_id = $conn->insert_id;
+    $medicamentSql = "INSERT INTO Somap_med (ppv, name, LOT, N_serie, arrival_date, quantity, expiry_date)
+                      VALUES ('$ppv', '$name', '$lot', '$n_serie', '$arrival_date', '$quantity', '$expiry_date')";
 
-        // Insert stock control details
-        $stock_control_sql = "INSERT INTO stock_controls (medicament_id, arrival_date, quantity, expiry_date)
-                             VALUES ('$medicament_id', '$arrival_date', '$quantity', '$expiry_date')";
-        if ($conn->query($stock_control_sql) === TRUE) {
-            $success_message = 'Medicament and stock control added successfully.';
-        } else {
-            $error_message = 'Error adding stock control: ' . $conn->error;
-        }
+    if ($conn->query($medicamentSql) === TRUE) {
+        $success_message = 'Médicament ajouté avec succès.';
     } else {
-        $error_message = 'Error adding medicament: ' . $conn->error;
+        $error_message = 'Erreur lors de l\'ajout du médicament : ' . $conn->error;
     }
 }
 ?>
+
+<!-- The rest of your HTML and PHP code remains unchanged -->
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -52,14 +48,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <span class="navbar-brand mb-0 h1">MedicamentStockDB</span>
+<span class="navbar-brand mb-0 h1"><img src="somaport-removebg-preview.png" style="width: 50%; margin-left: 40px;"  alt="Logo Somaport" ></span>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
                 <a class="nav-link" href="dashboard.php">Dashboard</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="logout.php">Logout</a>
+                <a class="nav-link" href="logout.php">Se deconnecter</a>
             </li>
         </ul>
     </div>

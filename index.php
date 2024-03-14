@@ -2,8 +2,8 @@
 session_start();
 
 // Dummy user credentials
-$valid_username = 'admin';
-$valid_password = 'admin';
+$valid_username = 'Somaport';
+$valid_password = 'Somaport';
 
 // Check if the user is already logged in
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
@@ -25,7 +25,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,15 +33,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Login - MedicamentStockDB</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body class="bg-light">
+    <style>
+        body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.card-header h4 {
+    margin-bottom: 0;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.alert {
+    margin-bottom: 15px;
+}
+
+.input-group-append button {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+    </style>
 
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card">
-                <div class="card-header bg-primary text-white">
-                    <h4>Se connecter</h4>
+                <div class="card-header bg-success text-white">
+                    <h4 class="text-center">Somaport Pharmacy</h4>
                 </div>
                 <div class="card-body">
                     <?php if (isset($error_message)): ?>
@@ -57,9 +81,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
                         <div class="form-group">
                             <label for="password">Mot de passe:</label>
-                            <input type="password" class="form-control" id="password" name="password" required>
+                            <div class="input-group">
+                                <input type="password" class="form-control" id="password" name="password" required>
+                                <div class="input-group-append">
+                                    <button class="btn btn-secondary" type="button" id="showPasswordBtn">Afficher</button>
+                                </div>
+                            </div>
                         </div>
-                        <button type="submit" class="btn btn-primary">Se connecter</button>
+                        <button type="submit" class="btn btn-success btn-block">Se connecter</button>
                     </form>
                 </div>
             </div>
@@ -71,6 +100,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="script.js"></script>
+<script>
+    document.getElementById('showPasswordBtn').addEventListener('click', function() {
+    var passwordInput = document.getElementById('password');
+    if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+    } else {
+        passwordInput.type = 'password';
+    }
+});
+
+</script>
 
 </body>
 </html>

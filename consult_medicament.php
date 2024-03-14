@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['consult_medicament'])
         $medicament_id = $_POST['medicament_id'];
 
         // Query to retrieve detailed information about the selected medicament
-        $query = "SELECT * FROM medicaments WHERE id = $medicament_id";
+        $query = "SELECT * FROM Somap_med WHERE id = $medicament_id";
         $result = $conn->query($query);
 
         // Check if the query was successful
@@ -39,6 +39,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['consult_medicament'])
 }
 ?>
 
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -63,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['consult_medicament'])
 </nav>
 
 <div class="container mt-5">
-    <h2>Détails du médicament</h2>
+    <h2 style="text-align: center;">Détails du médicament</h2>
 
     <?php if ($medicament): ?>
         <div class="card">
@@ -72,7 +74,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['consult_medicament'])
                 <p class="card-text">Nom: <?php echo $medicament['name']; ?></p>
                 <p class="card-text">LOT: <?php echo $medicament['LOT']; ?></p>
                 <p class="card-text">Nºserie: <?php echo $medicament['N_serie']; ?></p>
-                <p class="card-text">Prix ​par unité: <?php echo $medicament['ppv']; ?></p>
+                <p class="card-text">Prix par unité: <?php echo $medicament['ppv']; ?></p>
+                <p class="card-text">Date d'arrivée: <?php echo $medicament['arrival_date']; ?></p>
+                <p class="card-text">Quantité: <?php echo $medicament['quantity']; ?></p>
+                <p class="card-text">Date d'expiration: <?php echo $medicament['expiry_date']; ?></p>
                 <!-- Add more details as needed -->
 
                 <!-- Add additional details or information as needed -->
