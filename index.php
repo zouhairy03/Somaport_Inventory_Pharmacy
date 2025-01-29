@@ -33,62 +33,152 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Login - MedicamentStockDB</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <!-- Custom Styles -->
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body class="bg-light">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        :root {
+            --primary-color: #2a9d8f;
+            --secondary-color: #264653;
+            --accent-color: #e9c46a;
+        }
+
         body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            min-height: 100vh;
+        }
 
-.card-header h4 {
-    margin-bottom: 0;
-}
+        .login-card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
 
-.card-body {
-    padding: 20px;
-}
+        .login-card:hover {
+            transform: translateY(-5px);
+        }
 
-.alert {
-    margin-bottom: 15px;
-}
+        .card-header {
+            background: var(--secondary-color);
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+        }
 
-.input-group-append button {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-}
+        .card-header h4 {
+            color: white;
+            font-weight: 600;
+            margin: 0;
+            font-size: 1.8rem;
+        }
 
+        .card-header::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 20px 25px 0;
+            border-style: solid;
+            border-color: var(--secondary-color) transparent transparent transparent;
+        }
+
+        .card-body {
+            padding: 2.5rem;
+            background: white;
+        }
+
+        .form-control {
+            border-radius: 8px;
+            padding: 12px 20px;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(42,157,143,0.1);
+        }
+
+        .input-group-text {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-left: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .input-group-text:hover {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .btn-login {
+            background: var(--primary-color);
+            border: none;
+            padding: 12px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-login:hover {
+            background: #228176;
+            transform: translateY(-2px);
+        }
+
+        .alert {
+            border-radius: 8px;
+            padding: 12px 20px;
+            border: none;
+        }
+
+        .brand-logo {
+            width: 60px;
+            margin-bottom: 1rem;
+        }
     </style>
-
-<div class="container mt-5">
+</head>
+<body class="d-flex align-items-center">
+<div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header bg-success text-white">
-                    <h4 class="text-center">Somaport Pharmacy</h4>
+        <div class="col-md-6 col-lg-5">
+            <div class="login-card">
+                <div class="card-header">
+                    <h4><i class="fas fa-prescription-bottle-medical"></i> Somaport Pharma</h4>
                 </div>
                 <div class="card-body">
                     <?php if (isset($error_message)): ?>
-                        <div class="alert alert-danger" role="alert">
-                            <?php echo $error_message; ?>
+                        <div class="alert alert-danger d-flex align-items-center" role="alert">
+                            <i class="fas fa-exclamation-circle me-2"></i>
+                            <div><?php echo $error_message; ?></div>
                         </div>
                     <?php endif; ?>
                     <form action="" method="post">
-                        <div class="form-group">
-                            <label for="username">Nom d'utilisateur:</label>
-                            <input type="text" class="form-control" id="username" name="username" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Mot de passe:</label>
+                        <div class="form-group mb-4">
+                            <label for="username" class="form-label text-secondary">Nom d'utilisateur</label>
                             <div class="input-group">
-                                <input type="password" class="form-control" id="password" name="password" required>
-                                <div class="input-group-append">
-                                    <button class="btn btn-secondary" type="button" id="showPasswordBtn">Afficher</button>
-                                </div>
+                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                <input type="text" class="form-control" id="username" name="username" required>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-success btn-block">Se connecter</button>
+                        <div class="form-group mb-4">
+                            <label for="password" class="form-label text-secondary">Mot de passe</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                <input type="password" class="form-control" id="password" name="password" required>
+                                <button type="button" class="btn btn-outline-secondary" id="showPasswordBtn">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-login btn-block text-white">Connexion</button>
                     </form>
                 </div>
             </div>
@@ -96,22 +186,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 </div>
 
-<!-- Bootstrap JS and dependencies -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<script src="script.js"></script>
+<!-- Scripts remain the same -->
 <script>
     document.getElementById('showPasswordBtn').addEventListener('click', function() {
-    var passwordInput = document.getElementById('password');
-    if (passwordInput.type === 'password') {
-        passwordInput.type = 'text';
-    } else {
-        passwordInput.type = 'password';
-    }
-});
-
+        const passwordInput = document.getElementById('password');
+        const eyeIcon = this.querySelector('i');
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            eyeIcon.classList.replace('fa-eye', 'fa-eye-slash');
+        } else {
+            passwordInput.type = 'password';
+            eyeIcon.classList.replace('fa-eye-slash', 'fa-eye');
+        }
+    });
 </script>
-
 </body>
 </html>
